@@ -1,0 +1,82 @@
+trigger:
+  branches:
+    include:
+      - master
+  paths:
+    exclude:
+      - .pipelines/**
+      - .vscode/**
+      - README
+      - README.md
+
+name: '$(Build.SourceBranchName) $(Build.BuildId)-r$(Rev:rr)'
+
+### Following is the parameters that we can pass to the pipeline when we run it
+parameters:
+  - name: BuildConfiguration
+    displayName: 'Build Configuration'
+    type: string
+    default: 'Release'
+    values:
+      - 'Debug'
+      - 'Release'
+
+### Following name is the name of the pool that we have created in the Azure DevOps
+pool:
+  name: "k8s-azdo"
+
+
+variables:
+  BuildConfiguration: ${{ parameters.BuildConfiguration }}
+  ArtifactDir: $(Build.ArtifactStagingDirectory)/publish
+  DotnetTaskProjects: '**/*.csproj'
+
+workspace:
+  clean: all
+
+steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '9.x'
+      includePreviewVersions: false
+
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet restore'
+    inputs:
+      command: 'restore'
+      projects: $(DotnetTaskProjects)
+
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet build'
+    inputs:
+      command: 'build'
+      projects: $(DotnetTaskProjects)
+      arguments: '--configuration $(BuildConfiguration)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet publish'
+    inputs:
+      command: 'publish'
+      projects: $(DotnetTaskProjects)
+      modifyOutputPath: false
+      arguments: '--configuration $(BuildConfiguration) --output $(ArtifactDir)'
+
+  # Run following script only if System.Debug is true
+  - bash: |
+      set -euo pipefail
+      echo -e "\n\n SYSTEM.DEBUG: $(System.Debug) AND RUNNING THE BASH SCRIPT\nPWD = $(pwd)\n\n"
+      ls -al .
+      echo -e "\n\n\n"
+      tree .
+    workingDirectory: $(ArtifactDir)
+    displayName: 'Debug Only Script'
+    condition: eq(variables['System.Debug'], 'true')
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'publish artifact of webapp'
+    inputs:
+      targetPath: '$(ArtifactDir)'
+      artifact: 'webapp'
+      publishLocation: 'pipeline'
+
