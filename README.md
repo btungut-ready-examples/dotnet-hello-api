@@ -13,7 +13,6 @@ This is a simple .NET Core Web API project that demonstrates how to create a sim
 
 ![Debugging and swagger screen](./.img/debug_01.png)
 
-
 ### Call */members* endpoint
 
 Open the swagger and click the */members* endpoint and click the `Try it out` button and then click the `Execute` button.
@@ -28,8 +27,10 @@ Open the swagger and click the */members/{id}* endpoint and click the `Try it ou
 
 ![Debugging and swagger screen](./.img/debug_03.png)
 
-# Owner & Notes
+## Owner & Notes
 
-**Burak Tungut**
+This project is maintained by below:
+
+### Burak Tungut
 
 It only contains the basic structure of the .NET Core Web API project. It has been using for several projects / repositories which has been published by [GitHub : Burak Tungut Repositories](https://github.com/btungut)
