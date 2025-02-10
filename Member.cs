@@ -13,9 +13,9 @@ public class Member
     #region Static members for in-memory Member accesses
     private static readonly Dictionary<int, Member> members = new Dictionary<int, Member>
     {
-        { 0, new Member { Id = 1, Name = "John Doe", Age = 30 } },
-        { 1, new Member { Id = 2, Name = "Jane Doe", Age = 25 } },
-        { 2, new Member { Id = 3, Name = "Sammy Doe", Age = 35 } }
+        { 1, new Member { Id = 1, Name = "John Doe", Age = 30 } },
+        { 2, new Member { Id = 2, Name = "Jane Doe", Age = 25 } },
+        { 3, new Member { Id = 3, Name = "Sammy Doe", Age = 35 } }
     };
 
     private static readonly SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
