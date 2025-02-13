@@ -23,7 +23,7 @@ parameters:
 
 ### Following name is the name of the pool that we have created in the Azure DevOps
 pool:
-  name: "k8s-azdo"
+  name: "kube-pool"
 
 
 variables:
@@ -36,6 +36,7 @@ workspace:
 
 steps:
   - task: UseDotNet@2
+    displayName: 'use dotnet sdk'
     inputs:
       packageType: 'sdk'
       version: '9.x'
@@ -61,17 +62,6 @@ steps:
       projects: $(DotnetTaskProjects)
       modifyOutputPath: false
       arguments: '--configuration $(BuildConfiguration) --output $(ArtifactDir)'
-
-  # Run following script only if System.Debug is true
-  - bash: |
-      set -euo pipefail
-      echo -e "\n\n SYSTEM.DEBUG: $(System.Debug) AND RUNNING THE BASH SCRIPT\nPWD = $(pwd)\n\n"
-      ls -al .
-      echo -e "\n\n\n"
-      tree .
-    workingDirectory: $(ArtifactDir)
-    displayName: 'Debug Only Script'
-    condition: eq(variables['System.Debug'], 'true')
 
   - task: PublishPipelineArtifact@1
     displayName: 'publish artifact of webapp'
