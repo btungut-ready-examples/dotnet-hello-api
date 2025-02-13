@@ -20,6 +20,7 @@ parameters:
     values:
       - 'Debug'
       - 'Release'
+      
 
 ### Following name is the name of the pool that we have created in the Azure DevOps
 pool:
