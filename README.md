@@ -1,6 +1,6 @@
 # dotnet-hello-api
 
-This is a simple .NET Core Web API project that demonstrates how to create a simple API using .NET Core. It has been using for several projects / repositories which has been published by [GitHub : Burak Tungut Repositories](https://github.com/btungut)
+This is a simple .NET Core Web API project that demonstrates how to create a simple API using **.NET 9**. It has been using for several projects / repositories which has been published by [GitHub : Burak Tungut Repositories](https://github.com/btungut)
 
 ## Prerequisites
 
@@ -33,4 +33,4 @@ This project is maintained by below:
 
 ### Burak Tungut
 
-It only contains the basic structure of the .NET Core Web API project. It has been using for several projects / repositories which has been published by [GitHub : Burak Tungut Repositories](https://github.com/btungut)
+It only contains the basic structure of the .NET Web API project. It has been using for several projects / repositories which has been published by [GitHub : Burak Tungut Repositories](https://github.com/btungut)
